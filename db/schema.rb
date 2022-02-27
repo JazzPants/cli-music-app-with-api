@@ -13,14 +13,8 @@
 ActiveRecord::Schema.define(version: 4) do
 
   create_table "albums", force: :cascade do |t|
-    t.string "name"
-    t.integer "artist_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "artists", force: :cascade do |t|
-    t.string "name"
+    t.string "title"
+    t.string "artist"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -28,6 +22,13 @@ ActiveRecord::Schema.define(version: 4) do
   create_table "playlists", force: :cascade do |t|
     t.string "name"
     t.integer "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "playlists_albums", id: false, force: :cascade do |t|
+    t.integer "playlist_id"
+    t.integer "album_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

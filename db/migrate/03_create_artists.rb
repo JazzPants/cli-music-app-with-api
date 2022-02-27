@@ -8,4 +8,5 @@ class CreateArtists < ActiveRecord::Migration[4.2]
         t.string :name
         # t.integer :playlist_id
     end
+end
   end

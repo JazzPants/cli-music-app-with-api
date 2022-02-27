@@ -8,4 +8,5 @@ class CreatePlaylists < ActiveRecord::Migration[4.2]
         t.string :name
         t.integer :user_id
     end
+end
   end

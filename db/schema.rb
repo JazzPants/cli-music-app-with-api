@@ -19,16 +19,16 @@ ActiveRecord::Schema.define(version: 4) do
     t.datetime "updated_at"
   end
 
-  create_table "playlists", force: :cascade do |t|
-    t.string "name"
-    t.integer "user_id"
+  create_table "albums_playlists", id: false, force: :cascade do |t|
+    t.integer "playlist_id"
+    t.integer "album_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "playlists_albums", id: false, force: :cascade do |t|
-    t.integer "playlist_id"
-    t.integer "album_id"
+  create_table "playlists", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

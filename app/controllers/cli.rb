@@ -109,48 +109,61 @@ class CLI
     puts "**#{input} - Albums**"
     artist.show_albums
 
-    puts 'Please select a playlist to add albums to'
+    #add_album
+    puts 'Please type in a playlist to add albums to (case-sensitive)'
     display_playlists
 
-    puts "Please type a playlist to view it's albums (case-sensitive)"
     playlistInput = gets.chomp
     playlistId = Playlist.find_by(name: "#{playlistInput}").id
     puts "Current playlist: #{playlistInput}"
 
     puts 'Please select a number to add that corresponding album to your playlist'
     numberInput = gets.chomp.to_i
-
     albumToInsert = artist.albums[numberInput - 1]
-
+    puts "#{albumToInsert} added to #{playlistInput}"
     Album.create(title: "#{albumToInsert}", artist: input)
-
-
-
-
     albumId = Album.find_by(title: albumToInsert).id
-    AlbumsPlaylists.create(album_id: albumId, playlist_id:)
+    AlbumsPlaylists.create(album_id: albumId, playlist_id: playlistId)
 
-    #album id, insert into album table
-    # pick_album
+    #add_album
+    user_menu_options
   end
+
+  #   def add_album
+  #   end
 
   def display_playlists
     id = User.find_by(username: self.username).id
     puts "User id is #{id}"
     playlists = Playlist.all.where(user_id: id)
+    p playlists
+
     # playlistArray = []
     #   puts 'Please select a number to select that corresponding playlist'
     #check playlist table is empty
-        if playlists.find_by(id: 1)
-        playlists.each { |playlist| puts playlist.name }
-        #   puts 'Would you like to add to this playlist?'
-        else
-        puts 'No playlists exist! Please create one!'
-        user_menu_options
-        end
+    if playlists.find_by(id: 1)
+      playlists.each { |playlist| puts playlist.name }
+      inspect_playlist
+      #   puts 'Would you like to add to this playlist?'
+    else
+      puts 'No playlists exist! Please create one!'
+      user_menu_options
+    end
     #select a playlist to add albums to
   end
 
+  def inspect_playlist
+    puts "Please type a playlist to view it's albums (case-sensitive)"
+    input = gets.chomp
+    playlistId = Playlist.find_by(name: "#{input}").id
+    albumsJoin = AlbumsPlaylists.all.where(playlist_id: playlistId)
+    albumsJoin.each do |albumJoin|
+      p Album.find_by(id: albumJoin.album_id).title
+    end
+    user_menu_options
+    # album ids with playlistId from join table push those into empty array
+    #get the title of each album id and print
+  end
 
   def create_playlist
     id = User.find_by(username: self.username).id

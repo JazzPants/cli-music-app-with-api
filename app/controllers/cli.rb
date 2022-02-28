@@ -12,7 +12,7 @@ class CLI
       puts 'Welcome to Music Lovers!'
   
       #get_user_data, ask user name, else create one, or ask to view existing
-      puts 'Loading API...'
+      
       puts 'Please select an option.'
       start_menu_options
   
@@ -103,9 +103,18 @@ class CLI
     input = gets.chomp
        artist = Url.new
        artist.new_by_user_input(input)
-       p "#{input} Albums"
+       puts 'Loading API...'
+       puts "**#{input} - Albums**"
        artist.show_albums
+            #album id, insert into album table
+            pick_album
     end
+
+    
+    def pick_album
+puts "Please select a number to add that corresponding album to your playlist"
+    end
+
 
     def display_playlists
         id = User.find_by(username: self.username).id

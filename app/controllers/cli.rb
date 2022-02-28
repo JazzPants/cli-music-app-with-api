@@ -127,6 +127,19 @@ puts "Please select a number to add that corresponding album to your playlist"
     end
 
     def create_playlist
+        id = User.find_by(username: self.username).id
+        puts "Please type a name for your new playlist"
+        input = gets.chomp
+        puts "Do you want to use the playlist name #{input} y/n?"
+        yesNoInput = gets.chomp
+    #   yesNoInput == 'y' ? User.create(username: usernameInput) : start_menu
+            if yesNoInput == 'y'
+            Playlist.create(name: input, user_id: id)
+            else
+            user_menu_options
+            end
+        puts "Playlist called: #{input} created."
+        user_menu_options
     end
   end
   

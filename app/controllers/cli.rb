@@ -1,5 +1,5 @@
 #Step 1
-
+require_relative "./url.rb"
 #user responses
 #interact with user
 
@@ -79,7 +79,8 @@ class CLI
       puts 'Please select an option'
       puts "type '1' for artist search"
       puts "type '2' for current playlists"
-      puts "type '3' to exit application."
+      puts "type '3' to create a playlist"
+      puts "type '4' to exit application."
       user_menu
     end
   
@@ -99,9 +100,16 @@ class CLI
     end
 
     def display_playlists
+        id = User.find_by(username: self.username).id
+        p Playlist.find_by(id: id)
+        #select a playlist to add albums to
     end
   end
   
-  musiclover55 = CLI.new
-  musiclover55.username = "musiclover55"
-  p musiclover55.username
+#   musiclover55 = CLI.new
+#   musiclover55.username = "musiclover55"
+#   p musiclover55.username
+
+# p "testFetch"
+# testFetch = GetAlbums.new
+# testFetch.show_albums

@@ -52,7 +52,7 @@ class CLI
         user_menu_options
       else
         puts "User: #{input} does not exist!"
-        exit
+        start_menu_options
       end
       #save user input to database
       #username does not exist, would you like to create one?
@@ -90,6 +90,8 @@ class CLI
         enter_artist
       elsif input == '2'
         display_playlists
+      elsif input == '3'
+        create_playlist
       else
         puts 'exiting application'
         exit
@@ -97,12 +99,25 @@ class CLI
     end
 
     def enter_artist
+        puts "Please enter an artist."
+    input = gets.chomp
+       artist = Url.new
+       artist.new_by_user_input(input)
+       p "#{input} Albums"
+       artist.show_albums
     end
 
     def display_playlists
         id = User.find_by(username: self.username).id
-        p Playlist.find_by(id: id)
+        p "User id is #{id}"
+        playlists = Playlist.all.where(user_id: id)
+        playlists.each do |playlist|
+            puts playlist.name
+        end
         #select a playlist to add albums to
+    end
+
+    def create_playlist
     end
   end
   

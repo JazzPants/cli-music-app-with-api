@@ -91,6 +91,8 @@ class CLI
       enter_artist
     elsif input == '2'
       display_playlists
+      inspect_playlist
+      user_menu_options
     elsif input == '3'
       create_playlist
     else
@@ -111,6 +113,7 @@ class CLI
 
     #add_album
     puts 'Please type in a playlist to add albums to (case-sensitive)'
+
     display_playlists
 
     playlistInput = gets.chomp
@@ -141,9 +144,8 @@ class CLI
     # playlistArray = []
     #   puts 'Please select a number to select that corresponding playlist'
     #check playlist table is empty
-    if playlists.find_by(id: 1)
+    if playlists.all
       playlists.each { |playlist| puts playlist.name }
-      inspect_playlist
       #   puts 'Would you like to add to this playlist?'
     else
       puts 'No playlists exist! Please create one!'
@@ -160,7 +162,7 @@ class CLI
     albumsJoin.each do |albumJoin|
       p Album.find_by(id: albumJoin.album_id).title
     end
-    user_menu_options
+
     # album ids with playlistId from join table push those into empty array
     #get the title of each album id and print
   end
